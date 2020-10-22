@@ -48,8 +48,11 @@ function set-up {
     }
 }
 
+function get-savedRecords {
+    return Get-Content "$($auSavePath)\$($auSaveRecords)" | ConvertFrom-Json
+}
 function start-loadMenue {
-    
+
 }
 
 function write-loadfile {
