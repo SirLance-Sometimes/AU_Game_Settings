@@ -48,6 +48,15 @@ function set-up {
     }
 }
 
+function start-loadMenue {
+    
+}
+
+function write-loadfile {
+
+
+}
+
 main
 
 $EndTime = Get-Date -Format 'yyyy-mm-dd hh:mm:ss.fff'
