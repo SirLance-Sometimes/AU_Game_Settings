@@ -22,6 +22,7 @@ function main {
     write-host "*                 running.                 *"
     write-host "********************************************"
     while ($interacting) {
+        write-host "***************** Main Menu ****************"
         $userChoice = Read-Host "Do you wish to [L]oad, [S]ave, or [E]xit"
         switch ($userChoice.ToLower()){
             l {} # write load menu function 
@@ -52,6 +53,30 @@ function get-savedRecords {
     return Get-Content "$($auSavePath)\$($auSaveRecords)" | ConvertFrom-Json
 }
 function start-loadMenue {
+    $savedRecords = get-savedRecords
+    if ($savedRecords.length -eq 0) {
+        Write-Host "There are no save files.  Returning to main menu"
+        return
+    }
+    $loadMenuLoop = $true
+    while ($loadMenuLoop) {
+        for ($i = 0; $i -lt $savedRecords.Count; $i++) {
+            write-host "Press:$($i + 1) for $($savedRecords[$i].SaveName) Description: $($savedRecords[$i].Description)"
+        }
+        $userSelection = Read-Host "Select a Save # or [e]xit: "
+        if($userSelection.ToLower() -eq "e"){
+            break
+        }
+        elseif($userSelection -is [int] -and $userChoice -ge 1 -and $userChoice -le $savedRecords.count) {
+            write-loadfile $savedRecords[$userSelection]
+            return # another option would be to change the $loadMenuLoop to $false, but if this works I might be able to remove that vaiable
+        }
+        else {
+            Write-host "Invalid selection Please try again."
+        }
+    }
+    
+
 
 }
 
