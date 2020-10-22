@@ -14,8 +14,21 @@ $auSaveRecords = "AU_Saves.json"
 function main {
     set-up
     $interacting = $true
+    write-host "********** AU Game Settings Saver **********"
+    write-host "********************************************"
+    write-host "* When loading game setting this should be *"
+    write-host "*    done before the launching the game.   *" 
+    write-host "*  Saving can be done will the game is     *"
+    write-host "*                 running.                 *"
+    write-host "********************************************"
     while ($interacting) {
-        Write-Host ""
+        $userChoice = Read-Host "Do you wish to [L]oad, [S]ave, or [E]xit"
+        switch ($userChoice.ToLower()){
+            l {} # write load menu function 
+            s {} # write save function
+            e { $interacting = $false }
+            default { write-host "input $($userChoice) not valid. Please try again" }
+        }
     }
     
 }
