@@ -76,8 +76,6 @@ function start-loadMenue {
         }
     }
     
-
-
 }
 
 function write-loadfile {
