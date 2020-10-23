@@ -83,7 +83,7 @@ function write-loadfile {
     param(
         [PSCustomObject]$saveRecord
     )
-    Move-Item $saveRecord.filename "$($auHostConfigFolder)\gameHostOptions"
+    Move-Item $saveRecord.filename "$($auHostConfigFolder)\$($auHostConfigFile)"
 }
 
 function get-saveFile{
