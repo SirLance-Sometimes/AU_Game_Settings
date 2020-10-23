@@ -68,7 +68,7 @@ function start-loadMenue {
             break
         }
         elseif($userSelection -is [int] -and $userChoice -ge 1 -and $userChoice -le $savedRecords.count) {
-            write-loadfile $savedRecords[$userSelection]
+            write-loadfile $savedRecords[($userSelection - 1)]
             return # another option would be to change the $loadMenuLoop to $false, but if this works I might be able to remove that vaiable
         }
         else {
@@ -79,8 +79,10 @@ function start-loadMenue {
 }
 
 function write-loadfile {
-
-
+    param(
+        [PSCustomObject]$saveRecord
+    )
+    Move-Item $saveRecord.filename "$($auHostConfigFile)\gameHostOptions"
 }
 
 main
