@@ -1,7 +1,7 @@
 [cmdletbinding()]
 param()
 
-$TranscriptLogFile = ''
+$TranscriptLogFile = 'AU_Save_Game.log'
 $StartTime = Get-Date -Format 'yyyy-mm-dd hh:mm:ss.fff'
 Start-Transcript -Path $TranscriptLogFile -Append -NoClobber
 Write-information "Script started at: $StartTime"
