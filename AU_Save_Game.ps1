@@ -25,7 +25,7 @@ function main {
         write-host "***************** Main Menu ****************"
         $userChoice = Read-Host "Do you wish to [L]oad, [S]ave, or [E]xit"
         switch ($userChoice.ToLower()){
-            l {} # write load menu function 
+            l { start-loadMenu } # write load menu function 
             s {} # write save function
             e { $interacting = $false }
             default { write-host "input $($userChoice) not valid. Please try again" }
@@ -52,7 +52,7 @@ function set-up {
 function get-savedRecords {
     return Get-Content "$($auSavePath)\$($auSaveRecords)" | ConvertFrom-Json
 }
-function start-loadMenue {
+function start-loadMenu {
     $savedRecords = get-savedRecords
     if ($savedRecords.length -eq 0) {
         Write-Host "There are no save files.  Returning to main menu"
