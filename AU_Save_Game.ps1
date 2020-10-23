@@ -6,7 +6,8 @@ $StartTime = Get-Date -Format 'yyyy-mm-dd hh:mm:ss.fff'
 Start-Transcript -Path $TranscriptLogFile -Append -NoClobber
 Write-information "Script started at: $StartTime"
 
-$auHostConfigFile = ($env:userprofile + "\appdata\locallow\innersloth\Among Us")
+$auHostConfigFolder = ($env:userprofile + "\appdata\locallow\innersloth\Among Us")
+$auHostConfigFile = "gameHostOptions"
 $auSavePath = ($env:userprofile + "\appdata\locallow")
 $auSaveFolder = "AU_Saves"
 $auSaveRecords = "AU_Saves.json"
@@ -35,8 +36,8 @@ function main {
 }
 
 function set-up {
-    if ( -not (Test-Path $auHostConfigFile)) {
-        Write-Error "set-up Among us configuration folder can't be found at $($auHostConfigFile)"
+    if ( -not (Test-Path $auHostConfigFolder)) {
+        Write-Error "set-up Among us configuration folder can't be found at $($auHostConfigFolder)"
         exit
     }
     if( -not (Test-Path ($auSavePath + "\" + $auSaveFolder))){
@@ -82,10 +83,32 @@ function write-loadfile {
     param(
         [PSCustomObject]$saveRecord
     )
-    Move-Item $saveRecord.filename "$($auHostConfigFile)\gameHostOptions"
+    Move-Item $saveRecord.filename "$($auHostConfigFolder)\gameHostOptions"
 }
 
 function get-saveFile{
+    $saveName = ""
+    $saveDescription = ""
+
+    while($true){
+        $saveName = Read-Host "Save Name: "
+        $saveDescription = Read-Host "optional description: "
+        
+        if ( -not ($saveName -eq "")){
+            break
+        }
+    }
+
+    $savedRecords = get-savedRecords
+
+    Copy-Item "$($auHostConfigFolder)\$($auHostConfigFile)" "$($auSavePath)\$($auSaveFolder)\$($saveName)"
+
+    $newRecord = New-Object -TypeName PSCustomObject
+    $newRecord | Add-Member -MemberType NoteProperty -Name SaveName -Value $saveName
+    $newRecord | Add-Member -MemberType NoteProperty -Name Description -Value $saveDescription
+    $newRecord | Add-Member -MemberType NoteProperty -Name filename -Value $saveName
+    
+    $savedRecords += $newRecord
 
 }
 
