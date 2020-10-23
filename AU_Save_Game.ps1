@@ -26,7 +26,7 @@ function main {
         $userChoice = Read-Host "Do you wish to [L]oad, [S]ave, or [E]xit"
         switch ($userChoice.ToLower()){
             l { start-loadMenu } # write load menu function 
-            s {} # write save function
+            s { get-saveFile } # write save function
             e { $interacting = $false }
             default { write-host "input $($userChoice) not valid. Please try again" }
         }
@@ -83,6 +83,10 @@ function write-loadfile {
         [PSCustomObject]$saveRecord
     )
     Move-Item $saveRecord.filename "$($auHostConfigFile)\gameHostOptions"
+}
+
+function get-saveFile{
+
 }
 
 main
