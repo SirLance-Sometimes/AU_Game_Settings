@@ -110,6 +110,7 @@ function get-saveFile{
     
     $savedRecords += $newRecord
 
+    ConvertFrom-Json $savedRecords > "$($auSavePath)\$($auSaveFolder)\$($auSaveRecords)"
 }
 
 main
