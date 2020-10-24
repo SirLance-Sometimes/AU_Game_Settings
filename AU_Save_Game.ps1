@@ -110,23 +110,6 @@ function write-saveFile{
     $newRecord | Add-Member -MemberType NoteProperty -Name filename -Value $saveName
     
     $savedRecords += $newRecord
-    # todo when powershell only has one object in the array it outputs the json object as a single object like:
-    # {
-    #     "SaveName":  "test",
-    #     "Description":  "this is a test",
-    #     "filename":  "test"
-    # }
-    # When it should look like 
-    # [
-    #     {
-    #         "SaveName":  "test",
-    #         "Description":  "this is a test",
-    #         "filename":  "test"
-    #     }
-    # ]
-    # The problem here is that if there are no items in the array [] powershell saves the file incorrectly as an object instead of an object of arrays.
-    # The next save will have a pscustomobject as the type for $saveRecords when it should be type Object[], therefore the $savedRecords += $newRecord line
-    # throws an exception.
 
     Convertto-Json $savedRecords > "$($auSavePath)\$($auSaveFolder)\$($auSaveRecords)"
 }
