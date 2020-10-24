@@ -86,7 +86,7 @@ function write-loadfile {
     param(
         [PSCustomObject]$saveRecord
     )
-    Move-Item $saveRecord.filename "$($auHostConfigFolder)\$($auHostConfigFile)"
+    Copy-Item -Force "$($auSavePath)\$($auSaveFolder)\$($saveRecord.filename)" "$($auHostConfigFolder)\$($auHostConfigFile)" 
 }
 
 function write-saveFile{
