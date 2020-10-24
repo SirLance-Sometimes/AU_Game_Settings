@@ -65,16 +65,18 @@ function start-loadMenu {
         for ($i = 0; $i -lt $savedRecords.Count; $i++) {
             write-host "Press:$($i + 1) for $($savedRecords[$i].SaveName) Description: $($savedRecords[$i].Description)"
         }
-        $userSelection = Read-Host "Select a Save # or [e]xit: "
-        if($userSelection.ToLower() -eq "e"){
+        [uint16]$userSelection = Read-Host "Select a Save # or 0 to exit: "
+        if($userSelection -eq 0){
             break
         }
-        elseif($userSelection -is [int] -and $userChoice -ge 1 -and $userChoice -le $savedRecords.count) {
+        elseif($userSelection -ge 1 -and $userSelection -le $savedRecords.count) {
             write-loadfile $savedRecords[($userSelection - 1)]
             return # another option would be to change the $loadMenuLoop to $false, but if this works I might be able to remove that vaiable
         }
         else {
             Write-host "Invalid selection Please try again."
+            write-debug "$userSelection : $($userSelection)"
+            write-debug $savedRecords.count
         }
     }
     
