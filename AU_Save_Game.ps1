@@ -36,6 +36,7 @@ function main {
 }
 
 function set-up {
+    write-debug "In set up"
     if ( -not (Test-Path $auHostConfigFolder)) {
         Write-Error "set-up Among us configuration folder can't be found at $($auHostConfigFolder)"
         exit
@@ -44,9 +45,9 @@ function set-up {
         Write-Information "set-up save folder not found, creating $($auSavePath)\$($auSaveFolder)"
         New-Item -Path $auSavePath -name $auSaveFolder -ItemType "directory"
     }
-    if( -not (Test-Path ($auSavePath + "\" + $auSaveRecords))){
-        Write-Information "set-up records file not found, creating $($auSavePath)\$($auSaveRecords)"
-        ConvertTo-Json @() > "$($auSavePath)\$($auSaveRecords)"
+    if( -not (Test-Path ($auSavePath + "\" + $auSaveFolder + "\" + $auSaveRecords))){
+        Write-Information "set-up records file not found, creating $($auSavePath)\$($auSaveFolder)\$($auSaveRecords)"
+        ConvertTo-Json @() > "$($auSavePath)\$($auSaveFolder)\$($auSaveRecords)"
     }
 }
 
