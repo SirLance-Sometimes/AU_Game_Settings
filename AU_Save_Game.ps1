@@ -46,7 +46,7 @@ function set-up {
     }
     if( -not (Test-Path ($auSavePath + "\" + $auSaveRecords))){
         Write-Information "set-up records file not found, creating $($auSavePath)\$($auSaveRecords)"
-        ConvertTo-Json @() > AU_Saves.json
+        ConvertTo-Json @() > "$($auSavePath)\$($auSaveRecords)"
     }
 }
 
