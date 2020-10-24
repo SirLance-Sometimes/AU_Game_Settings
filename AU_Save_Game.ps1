@@ -27,7 +27,7 @@ function main {
         $userChoice = Read-Host "Do you wish to [L]oad, [S]ave, or [E]xit"
         switch ($userChoice.ToLower()){
             l { start-loadMenu } # write load menu function 
-            s { get-saveFile } # write save function
+            s { write-saveFile } # write save function
             e { $interacting = $false }
             default { write-host "input $($userChoice) not valid. Please try again" }
         }
@@ -87,7 +87,7 @@ function write-loadfile {
     Move-Item $saveRecord.filename "$($auHostConfigFolder)\$($auHostConfigFile)"
 }
 
-function get-saveFile{
+function write-saveFile{
     $saveName = ""
     $saveDescription = ""
 
